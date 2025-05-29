@@ -33,20 +33,15 @@ try {
     Write-Host "Checking for latest release..." -ForegroundColor Cyan
     $latestRelease = Invoke-RestMethod -Uri $ReleasesUrl -Headers $headers
 
-    # Find the .ps1 asset (instead of .exe)
-    $scriptAsset = $latestRelease.assets | Where-Object { $_.name -like "CDT*.ps1" } | Select-Object -First 1
-
-    if (-not $scriptAsset) {
-        Write-Host "No PowerShell script found in latest release." -ForegroundColor Red
-        exit 1
-    }
+    # Download directly from the main branch instead of releases
+    $scriptUrl = "https://raw.githubusercontent.com/$RepoOwner/$RepoName/main/CDT.ps1"
 
     # Download the new version with a unique temp filename
     $tempPath = [System.IO.Path]::GetTempPath()
     $tempScript = Join-Path $tempPath ("CDT_Update_" + [guid]::NewGuid().ToString() + ".ps1")
 
-    Write-Host "Downloading new version: $($scriptAsset.name)..." -ForegroundColor Cyan
-    Invoke-WebRequest -Uri $scriptAsset.browser_download_url -OutFile $tempScript -Headers $headers
+    Write-Host "Downloading new version from main branch..." -ForegroundColor Cyan
+    Invoke-WebRequest -Uri $scriptUrl -OutFile $tempScript -Headers $headers
 
     # Use the provided target path
     $currentPath = $TargetPath
