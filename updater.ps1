@@ -4,7 +4,14 @@
 .DESCRIPTION
     This script handles the update process for CDT.
     It's downloaded and executed by the main application when an update is available.
+.PARAMETER TargetPath
+    The path to the executable that should be updated
 #>
+
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$TargetPath
+)
 
 #region Initialization
 #Requires -Version 5.1
@@ -40,10 +47,10 @@ try {
 
     Write-Host "Downloading new version: $($exeAsset.name)..." -ForegroundColor Cyan
     Invoke-WebRequest -Uri $exeAsset.browser_download_url -OutFile $tempExe -Headers $headers
-    
-    # Determine the current executable path
-    $currentPath = [System.Diagnostics.Process]::GetCurrentProcess().MainModule.FileName
-    
+
+    # Use the provided target path
+    $currentPath = $TargetPath
+
     Write-Host "Replacing current version at: $currentPath" -ForegroundColor Cyan
     
     # Close the main CDT process if running
@@ -87,4 +94,9 @@ try {
         Remove-Item -Path $tempExe -Force -ErrorAction SilentlyContinue
     }
     exit 1
+} finally {
+    # Clean up temp file if it exists
+    if ($tempExe -and (Test-Path $tempExe)) {
+        Remove-Item -Path $tempExe -Force -ErrorAction SilentlyContinue
+    }
 }
