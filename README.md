@@ -1,6 +1,6 @@
 # Cheat Detection Tool (CDT)
 
-![CDT Logo]([https://via.placeholder.com/150](https://cdn.discordapp.com/attachments/1377354446736068794/1377689542739361852/icon.ico?ex=6839e0df&is=68388f5f&hm=d31f97f7f2b4fe4b43a04382e526eae5646a3efcd2e52fba319bbc409dbdac45&))
+![CDT Logo]([https://cdn.discordapp.com/attachments/1377354446736068794/1377689542739361852/icon.ico?ex=6839e0df&is=68388f5f&hm=d31f97f7f2b4fe4b43a04382e526eae5646a3efcd2e52fba319bbc409dbdac45&])
 
 A comprehensive security tool for detecting cheats, exploits, and suspicious system activity. Designed for security professionals and game administrators.
 
