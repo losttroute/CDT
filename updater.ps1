@@ -56,22 +56,22 @@ try {
     $success = $false
     
     while ($retryCount -lt $maxRetries -and -not $success) {
-    try {
-        Start-Sleep -Seconds 1
-        if (Test-Path $currentPath) {
-            Remove-Item -Path $currentPath -Force -ErrorAction Stop
-        }
-        Move-Item -Path $tempExe -Destination $currentPath -Force
-        $success = $true
-    } catch {
-        $retryCount++
-        # Fixed this line by using ${_} inside double quotes
-        Write-Host "Retry $retryCount of $maxRetries: ${_}" -ForegroundColor Yellow
-        if ($retryCount -ge $maxRetries) {
-            throw $_
+        try {
+            Start-Sleep -Seconds 1
+            if (Test-Path $currentPath) {
+                Remove-Item -Path $currentPath -Force -ErrorAction Stop
+            }
+            Move-Item -Path $tempExe -Destination $currentPath -Force
+            $success = $true
+        } catch {
+            $retryCount++
+            $errorMessage = $_.Exception.Message
+            Write-Host "Retry $retryCount of $maxRetries: $errorMessage" -ForegroundColor Yellow
+            if ($retryCount -ge $maxRetries) {
+                throw $_
+            }
         }
     }
-}
     
     if ($success) {
         Write-Host "Update completed successfully. Restarting application..." -ForegroundColor Green
