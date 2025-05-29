@@ -65,7 +65,7 @@ try {
             $success = $true
         } catch {
             $retryCount++
-            Write-Host "Retry $retryCount of $maxRetries: $_" -ForegroundColor Yellow
+            Write-Host ("Retry {0} of {1}: {2}" -f $retryCount, $maxRetries, $_) -ForegroundColor Yellow
             if ($retryCount -ge $maxRetries) {
                 throw $_
             }
