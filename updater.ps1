@@ -94,9 +94,4 @@ try {
         Remove-Item -Path $tempExe -Force -ErrorAction SilentlyContinue
     }
     exit 1
-} finally {
-    # Clean up temp file if it exists
-    if ($tempExe -and (Test-Path $tempExe)) {
-        Remove-Item -Path $tempExe -Force -ErrorAction SilentlyContinue
-    }
 }
