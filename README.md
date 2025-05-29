@@ -71,7 +71,7 @@ For issues or feature requests:
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) file for details
+MIT License - See [LICENSE]([LICENSE](https://github.com/losttroute/CDT/blob/main/LICENSE.md)) file for details
 
 ---
 
