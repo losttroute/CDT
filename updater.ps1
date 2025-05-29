@@ -5,7 +5,7 @@
     This script handles the update process for CDT.
     It's downloaded and executed by the main application when an update is available.
 .PARAMETER TargetPath
-    The path to the executable that should be updated
+    The path to the PowerShell script that should be updated
 #>
 
 param(
@@ -33,31 +33,36 @@ try {
     Write-Host "Checking for latest release..." -ForegroundColor Cyan
     $latestRelease = Invoke-RestMethod -Uri $ReleasesUrl -Headers $headers
 
-    # Find the .exe asset
-    $exeAsset = $latestRelease.assets | Where-Object { $_.name -like "CDT*.exe" } | Select-Object -First 1
+    # Find the .ps1 asset (instead of .exe)
+    $scriptAsset = $latestRelease.assets | Where-Object { $_.name -like "CDT*.ps1" } | Select-Object -First 1
 
-    if (-not $exeAsset) {
-        Write-Host "No executable found in latest release." -ForegroundColor Red
+    if (-not $scriptAsset) {
+        Write-Host "No PowerShell script found in latest release." -ForegroundColor Red
         exit 1
     }
 
     # Download the new version with a unique temp filename
     $tempPath = [System.IO.Path]::GetTempPath()
-    $tempExe = Join-Path $tempPath ("CDT_Update_" + [guid]::NewGuid().ToString() + ".exe")
+    $tempScript = Join-Path $tempPath ("CDT_Update_" + [guid]::NewGuid().ToString() + ".ps1")
 
-    Write-Host "Downloading new version: $($exeAsset.name)..." -ForegroundColor Cyan
-    Invoke-WebRequest -Uri $exeAsset.browser_download_url -OutFile $tempExe -Headers $headers
+    Write-Host "Downloading new version: $($scriptAsset.name)..." -ForegroundColor Cyan
+    Invoke-WebRequest -Uri $scriptAsset.browser_download_url -OutFile $tempScript -Headers $headers
 
     # Use the provided target path
     $currentPath = $TargetPath
 
     Write-Host "Replacing current version at: $currentPath" -ForegroundColor Cyan
     
-    # Close the main CDT process if running
-    $processName = [System.IO.Path]::GetFileNameWithoutExtension($currentPath)
-    Get-Process -Name $processName -ErrorAction SilentlyContinue | Stop-Process -Force
+    # Close any PowerShell processes running this script
+    $processes = Get-Process -Name "powershell" -ErrorAction SilentlyContinue | 
+                 Where-Object { $_.MainWindowTitle -like "*CDT*" }
     
-    # Wait for process to exit
+    if ($processes) {
+        $processes | Stop-Process -Force
+        Start-Sleep -Seconds 2
+    }
+    
+    # Wait for process to exit and replace the file
     $maxRetries = 5
     $retryCount = 0
     $success = $false
@@ -68,7 +73,7 @@ try {
             if (Test-Path $currentPath) {
                 Remove-Item -Path $currentPath -Force -ErrorAction Stop
             }
-            Move-Item -Path $tempExe -Destination $currentPath -Force
+            Move-Item -Path $tempScript -Destination $currentPath -Force
             $success = $true
         } catch {
             $retryCount++
@@ -84,14 +89,14 @@ try {
         Write-Host "Update completed successfully. Restarting application..." -ForegroundColor Green
         
         # Restart the application
-        Start-Process -FilePath $currentPath -Verb RunAs
+        Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$currentPath`"" -Verb RunAs
         exit 0
     }
 } catch {
     Write-Host "Update failed: $_" -ForegroundColor Red
     # Clean up temp file if it exists
-    if ($tempExe -and (Test-Path $tempExe)) {
-        Remove-Item -Path $tempExe -Force -ErrorAction SilentlyContinue
+    if ($tempScript -and (Test-Path $tempScript)) {
+        Remove-Item -Path $tempScript -Force -ErrorAction SilentlyContinue
     }
     exit 1
 }
