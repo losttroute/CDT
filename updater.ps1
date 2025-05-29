@@ -66,7 +66,7 @@ try {
         } catch {
             $retryCount++
             $errorMessage = $_.Exception.Message
-            Write-Host "Retry ${retryCount} of ${maxRetries}: $errorMessage" -ForegroundColor Yellow
+            Write-Host ("Retry {0} of {1}: {2}" -f $retryCount, $maxRetries, $errorMessage) -ForegroundColor Yellow
             if ($retryCount -ge $maxRetries) {
                 throw $_
             }
