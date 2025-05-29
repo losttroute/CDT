@@ -30,6 +30,13 @@ A comprehensive security tool for detecting cheats, exploits, and suspicious sys
    - **Reports**: View previously generated reports
    - **Settings**: Configure tool options
 
+## System Requirements
+- **OS**: Windows 10/11 (64-bit)  
+- **RAM**: 4GB minimum (8GB recommended)  
+- **Storage**: 100MB free space  
+- **Permissions**: Administrator rights required  
+- **Dependencies**: .NET Framework 4.8  
+
 ### Command Line Options
 
 Run `CDT.exe` with these optional parameters:
@@ -56,18 +63,15 @@ CDT includes an automatic update system. When an update is available:
    - Replace the existing executable
    - Restart the application
 
-## Security Considerations
-
-- Always run as Administrator for full functionality
-- The tool may be flagged by antivirus due to its deep system scanning capabilities
-- Add an exception for CDT.exe in your antivirus if needed
-- Logs are stored in a hidden folder on your desktop by default
-
 ## Support
 
 For issues or feature requests:
 - Open an issue on GitHub
 - Contact losttroute on Discord
+
+## Contributors
+- **Developer**: losttroute  
+- **Special Thanks**: @sansikw 
 
 ## License
 
@@ -75,4 +79,6 @@ MIT License - See [LICENSE]([LICENSE](https://github.com/losttroute/CDT/blob/mai
 
 ---
 
-*CDT is provided as-is without warranty. Use at your own risk.*
+*CDT is provided as-is without warranty. Always verify findings through multiple security tools.*  
+
+*Last Updated: May 2025*
