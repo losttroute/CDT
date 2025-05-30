@@ -6,9 +6,8 @@ A comprehensive security tool for detecting cheats, exploits, and suspicious sys
 
 ## Features
 
-- **Registry Scanning**: Detect suspicious registry entries and persistence mechanisms
-- **Last Activity Analysis**: Review recent system activity including executed files and opened documents
 - **Exploit Detection**: Identify known cheat software and suspicious files
+- **Last Activity Analysis**: Review recent system activity including executed files and opened documents
 - **System Information**: Gather detailed system specs and security settings
 - **Automated Reporting**: Generate detailed logs of all findings
 
@@ -24,10 +23,9 @@ A comprehensive security tool for detecting cheats, exploits, and suspicious sys
 
 1. Launch `CDT.exe` as Administrator
 2. Use the menu system to select operations:
-   - **Registry Scan**: Scans for suspicious registry entries
-   - **Last Activity**: Shows recent system activity
-   - **Checker**: Scans for known exploits
-   - **Reports**: View previously generated reports
+   - **Scan for Exploits**: Scans for known exploits
+   - **View Last Activity**: Shows recent system activity
+   - **View Reports**: View previously generated reports
    - **Settings**: Configure tool options
 
 ## System Requirements
