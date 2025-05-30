@@ -71,7 +71,7 @@ For issues or feature requests:
 
 ## Contributors
 - **Developer**: losttroute  
-- **Special Thanks**: @sansikw 
+- **Special Thanks**: sansikw 
 
 ## License
 
