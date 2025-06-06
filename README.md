@@ -2,7 +2,7 @@
 
 ![CDT Logo](https://cdn.discordapp.com/attachments/1377354446736068794/1377691926467182715/icon.jpg?ex=6839e317&is=68389197&hm=3970ae6abf1501457dcaa43345cc9c4e293fcaeb5cb1a251bafc27fa177199cf&)
 
-A comprehensive security tool for detecting cheats, exploits, and suspicious system activity. Designed for security professionals and game administrators.
+A comprehensive security tool for detecting cheats, exploits, and suspicious system activity. Designed for game administrators.
 
 ## Features
 
