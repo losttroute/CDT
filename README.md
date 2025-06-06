@@ -53,13 +53,7 @@ Options:
 
 ### Automatic Updates
 
-CDT includes an automatic update system. When an update is available:
-1. The tool will notify you on startup
-2. Confirm the update when prompted
-3. The updater will:
-   - Download the new version
-   - Replace the existing executable
-   - Restart the application
+CDT includes an automatic update system.
 
 ## Support
 
